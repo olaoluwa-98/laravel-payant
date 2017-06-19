@@ -5,6 +5,7 @@
 [![Build Status](https://img.shields.io/travis/olaoluwa-98/laravel-payant.svg)](https://travis-ci.org/olaoluwa-98/laravel-payant)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/olaoluwa-98/laravel-payant/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/olaoluwa-98/laravel-payant/?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/olaoluwa-98/laravel-payant.svg?style=flat-square)](https://packagist.org/packages/olaoluwa-98/laravel-payant)
+
 Inspired By unicodeveloper's [laravel-paystack](https://github.com/unicodeveloper/laravel-paystack)
 Main functions from Jonathan Itakpe's [payantNG-php](https://github.com/JonathanItakpe/payantNG-php)
 
