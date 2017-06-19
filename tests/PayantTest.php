@@ -39,18 +39,5 @@ class PayantTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('array', gettype(array($array)));
     }
-
-    public function testAllTransactionsAreReturned()
-    {
-        $array = $this->payant->shouldReceive('getAllTransactions')->andReturn(['transactions']);
-
-        $this->assertEquals('array', gettype(array($array)));
-    }
-
-    public function testAllPlansAreReturned()
-    {
-        $array = $this->payant->shouldReceive('getAllPlans')->andReturn(['intermediate-plan']);
-
-        $this->assertEquals('array', gettype(array($array)));
-    }
+    // write other tests.
 }

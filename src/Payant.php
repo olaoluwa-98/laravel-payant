@@ -13,10 +13,10 @@ namespace Olaoluwa98\Payant;
 
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Config;
-use Olaoluwa98\Payant\Exceptions\ApiRequestError;
-use Olaoluwa98\Payant\Exceptions\InvalidCredentials;
+// use Olaoluwa98\Payant\Exceptions\ApiRequestError;
+// use Olaoluwa98\Payant\Exceptions\InvalidCredentials;
 use Olaoluwa98\Payant\Exceptions\InvalidFeeBearer;
-use Olaoluwa98\Payant\Exceptions\InvalidParameterType;
+// use Olaoluwa98\Payant\Exceptions\InvalidParameterType;
 use Olaoluwa98\Payant\Exceptions\IsInvalid;
 use Olaoluwa98\Payant\Exceptions\IsNull;
 use Olaoluwa98\Payant\Exceptions\IsNullOrInvalid;
