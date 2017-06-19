@@ -7,6 +7,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/olaoluwa-98/laravel-payant.svg?style=flat-square)](https://packagist.org/packages/olaoluwa-98/laravel-payant)
 
 Inspired By unicodeveloper's [laravel-paystack](https://github.com/unicodeveloper/laravel-paystack)
+
 Main functions from Jonathan Itakpe's [payantNG-php](https://github.com/JonathanItakpe/payantNG-php)
 
 > A Laravel 5 Package for working with Payant
