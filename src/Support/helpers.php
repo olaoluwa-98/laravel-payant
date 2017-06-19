@@ -1,5 +1,5 @@
 <?php
-namespace Olaoluwa98\Payant\Support;
+namespace Olaoluwa98\Payant;
 
 use Olaoluwa98\Payant\Exceptions\ApiRequestError;
 use Olaoluwa98\Payant\Exceptions\InvalidCredentials;
@@ -58,5 +58,5 @@ if(!function_exists('array_keys_exist')){
 
 function cleanResponse($response){
 	$result = $response->getBody();
-	return json_decode($result);
+	return $result;
 }
