@@ -2,7 +2,7 @@
 
 Contributions are **welcome** and will be fully **credited**.
 
-We accept contributions via Pull Requests on [Github](https://github.com/olaoluwa-98/laravel-payant-ng).
+We accept contributions via Pull Requests on [Github](https://github.com/olaoluwa-98/laravel-payant).
 
 
 ## Pull Requests

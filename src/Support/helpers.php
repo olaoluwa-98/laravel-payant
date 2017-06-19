@@ -1,8 +1,17 @@
 <?php
-namespace Olaoluwa98\Payant;
+namespace Olaoluwa98\Payant\Support;
+
+use Olaoluwa98\Payant\Exceptions\ApiRequestError;
+use Olaoluwa98\Payant\Exceptions\InvalidCredentials;
+use Olaoluwa98\Payant\Exceptions\InvalidFeeBearer;
+use Olaoluwa98\Payant\Exceptions\InvalidParameterType;
+use Olaoluwa98\Payant\Exceptions\IsInvalid;
+use Olaoluwa98\Payant\Exceptions\IsNull;
+use Olaoluwa98\Payant\Exceptions\IsNullOrInvalid;
+use Olaoluwa98\Payant\Exceptions\RequiredValueMissing;
+use Olaoluwa98\Payant\Exceptions\RequiredValuesMissing;
 
 use \Exception as phpException;
-use Olaoluwa98\Payant\Exception;
 
 if (! function_exists('array_get'))
 {
@@ -51,4 +60,3 @@ function cleanResponse($response){
 	$result = $response->getBody();
 	return json_decode($result);
 }
- ?>

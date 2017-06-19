@@ -13,9 +13,17 @@ namespace Olaoluwa98\Payant;
 
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Config;
-use Olaoluwa98\Payant\Exception;
-use \Exception as phpException;
+use Olaoluwa98\Payant\Exceptions\ApiRequestError;
+use Olaoluwa98\Payant\Exceptions\InvalidCredentials;
+use Olaoluwa98\Payant\Exceptions\InvalidFeeBearer;
+use Olaoluwa98\Payant\Exceptions\InvalidParameterType;
+use Olaoluwa98\Payant\Exceptions\IsInvalid;
+use Olaoluwa98\Payant\Exceptions\IsNull;
+use Olaoluwa98\Payant\Exceptions\IsNullOrInvalid;
+use Olaoluwa98\Payant\Exceptions\RequiredValueMissing;
+use Olaoluwa98\Payant\Exceptions\RequiredValuesMissing;
 
+use \Exception as phpException;
 class Payant {
     
 
@@ -109,7 +117,7 @@ class Payant {
         $required_values = ['settlement_bank', 'account_number'];
 
         if(!array_keys_exist($client_data, $required_values)){
-         throw new Exception\RequiredValuesMissing("Missing required values :(");
+         throw new RequiredValuesMissing("Missing required values :(");
         }
 
         $url = '/resolve-account';
@@ -131,7 +139,7 @@ class Payant {
         $required_values = ['first_name', 'last_name', 'email', 'phone'];
 
         if(!array_keys_exist($client_data, $required_values)){
-         throw new Exception\RequiredValuesMissing("Missing required values :(");
+         throw new RequiredValuesMissing("Missing required values :(");
         }
 
         $url = '/clients';
@@ -149,7 +157,7 @@ class Payant {
     */
     public function getClient($client_id = null){
         if(!$client_id){
-            throw new Exception\IsNullOrInvalid("Error Processing Request - Null/Invalid Client Id");
+            throw new IsNullOrInvalid("Error Processing Request - Null/Invalid Client Id");
         }
 
         $url = "/clients/{$client_id}";
@@ -170,7 +178,7 @@ class Payant {
     */
     public function editClient( $client_id, array $client_data){
         if(!$client_id){
-           throw new Exception\IsNullOrInvalid("Error Processing Request - Null/Invalid Client Id");
+           throw new IsNullOrInvalid("Error Processing Request - Null/Invalid Client Id");
         }
 
         $url = "/clients/{$client_id}";
@@ -179,7 +187,7 @@ class Payant {
         $required_values = ['first_name', 'last_name', 'email', 'phone'];
 
         if(!array_keys_exist($client_data, $required_values)){
-             throw new Exception\RequiredValuesMissing("Missing required values :(");
+             throw new RequiredValuesMissing("Missing required values :(");
         }
 
         return $this->sendRequest('put', $url, ['form_params' => $client_data]);
@@ -195,7 +203,7 @@ class Payant {
      */
     public function deleteClient($client_id = null){
         if(!$client_id){
-            throw new Exception\IsNullOrInvalid("Error Processing Request - Null/Invalid Client Id");
+            throw new IsNullOrInvalid("Error Processing Request - Null/Invalid Client Id");
         }
 
         $url = "/clients/{$client_id}";
@@ -228,21 +236,21 @@ class Payant {
         
         // Either the client Id is supplied or a new client data is provided
         if(!$client_id && !array_keys_exist($client_data, $required_client_values)){
-            throw new Exception\RequiredValuesMissing("Missing required values :( - Provide client_id or client_data");
+            throw new RequiredValuesMissing("Missing required values :( - Provide client_id or client_data");
         }
 
         if(!$due_date){
-            throw new Exception\IsNullOrInvalid("Error Processing Request - Null/Invalid Due Date");
+            throw new IsNullOrInvalid("Error Processing Request - Null/Invalid Due Date");
         }
 
         if(!$fee_bearer){
-            throw new Exception\IsNull("Error Processing Request - Null Fee Bearer");
+            throw new IsNull("Error Processing Request - Null Fee Bearer");
         }elseif (!in_array($fee_bearer, $valid_fee_bearers)) {
-            throw new Exception\InvalidFeeBearer("Invalid Fee Bearer - Use either 'account' or 'client'");
+            throw new InvalidFeeBearer("Invalid Fee Bearer - Use either 'account' or 'client'");
         }
 
         if(!is_array($items)){
-            throw new Exception\IsInvalid("Error Processing Request - Invalid Items");
+            throw new IsInvalid("Error Processing Request - Invalid Items");
         }
 
         $url = "/invoices";
@@ -269,7 +277,7 @@ class Payant {
     */
     public function getInvoice($reference_code){
         if(!$reference_code){
-            throw new Exception\IsNullOrInvalid("Error Processing Request - Null/Invalid reference_code");
+            throw new IsNullOrInvalid("Error Processing Request - Null/Invalid reference_code");
         }
 
         $url = "/invoices/{$reference_code}";
@@ -284,7 +292,7 @@ class Payant {
     */
     public function sendInvoice($reference_code = null){
         if(!$reference_code){
-            throw new Exception\IsNullOrInvalid("Error Processing Request - Null/Invalid reference_code");
+            throw new IsNullOrInvalid("Error Processing Request - Null/Invalid reference_code");
         }
 
             $url = "/invoices/send/{$reference_code}";
@@ -305,14 +313,14 @@ class Payant {
     */
     public function getInvoiceHistory($period, $start = null, $end = null){
         if(!$period){
-            throw new Exception\RequiredValueMissing("Error Processing Request - period Missing");
+            throw new RequiredValueMissing("Error Processing Request - period Missing");
         }
 
         //Validate Period
         $valid_period_options = ["today", "week", "month", "30", "90", "year", "custom"];
 
         if (!in_array($period, $valid_period_options)) {
-            throw new Exception\IsInvalid("Invalid Period - Available options: today, week, month, 30, 90, year or custom");
+            throw new IsInvalid("Invalid Period - Available options: today, week, month, 30, 90, year or custom");
         }
 
         $post_data = [
@@ -321,7 +329,7 @@ class Payant {
 
         if ($period == 'custom'){
             if (!$start || !$end){
-                throw new Exception\IsNull("Invalid custom Start or End date");
+                throw new IsNull("Invalid custom Start or End date");
             }
             $post_data['start'] = $start;
             $post_data['end'] = $end;
@@ -343,7 +351,7 @@ class Payant {
     */
     public function deleteInvoice($reference_code){
         if(!$reference_code){
-            throw new Exception\IsNullOrInvalid("Error Processing Request - Null/Invalid reference_code");
+            throw new IsNullOrInvalid("Error Processing Request - Null/Invalid reference_code");
         }
 
         $url = "/invoices/{$reference_code}";
@@ -364,23 +372,23 @@ class Payant {
     */
     public function addPayment(string $reference_code, string $date, string $amount, string $channel){
         if(!$reference_code){
-            throw new Exception\IsNullOrInvalid("Error Processing Request - Null/Invalid reference_code");
+            throw new IsNullOrInvalid("Error Processing Request - Null/Invalid reference_code");
         }
 
         if(!$due_date){
-            throw new Exception\IsNullOrInvalid("Error Processing Request - Null/Invalid date");
+            throw new IsNullOrInvalid("Error Processing Request - Null/Invalid date");
         }
 
         if(!$amount){
-            throw new Exception\IsNullOrInvalid("Error Processing Request - Null/Invalid amount");
+            throw new IsNullOrInvalid("Error Processing Request - Null/Invalid amount");
         }
 
         $valid_channels = ["Cash", "BankTransfer", "POS", "Cheque"];
 
         if(!$channel){
-            throw new Exception\IsNull("Error Processing Request - Null/Invalid amount");
+            throw new IsNull("Error Processing Request - Null/Invalid amount");
         }elseif (!in_array(ucfirst($channel), $valid_channels)) {
-            throw new Exception\IsInvalid("Invalid Channel - Cash, BankTransfer, POS or Cheque");
+            throw new IsInvalid("Invalid Channel - Cash, BankTransfer, POS or Cheque");
         }
 
         $url = "/payments";
@@ -405,7 +413,7 @@ class Payant {
     */
     public function getPayment($reference_code){
         if(!$reference_code){
-            throw new Exception\IsNullOrInvalid("Error Processing Request - Null/Invalid reference_code");
+            throw new IsNullOrInvalid("Error Processing Request - Null/Invalid reference_code");
         }
 
         $url = "/payments/{$reference_code}";
@@ -426,14 +434,14 @@ class Payant {
     */
     public function getPaymentHistory(string $period, string $start, string $end){
         if(!$period){
-            throw new Exception\RequiredValueMissing("Error Processing Request - period Missing");
+            throw new RequiredValueMissing("Error Processing Request - period Missing");
         }
 
         //Validate Period
         $valid_period_options = ["today", "week", "month", "30", "90", "year", "custom"];
 
         if (!in_array(strtolower($period), $valid_period_options)) {
-            throw new Exception\IsInvalid("Invalid Period - Available options: today, week, month, 30, 90, year or custom");
+            throw new IsInvalid("Invalid Period - Available options: today, week, month, 30, 90, year or custom");
         }
 
         $post_data = [
@@ -442,7 +450,7 @@ class Payant {
 
         if ($period == 'custom'){
             if (!$start || !$end){
-                throw new Exception\IsNull("Invalid custom Start or End date");
+                throw new IsNull("Invalid custom Start or End date");
             }
             $post_data['start'] = $start;
             $post_data['end'] = $end;
@@ -466,24 +474,24 @@ class Payant {
     */
     public function addProduct(string $name, string $description, string $unit_cost, string $type){
         if(!$name){
-            throw new Exception\IsNull("Error Processing Request - Null/Invalid name");
+            throw new IsNull("Error Processing Request - Null/Invalid name");
         }
 
         if(!$description){
-            throw new Exception\IsNull("Error Processing Request - Null/Invalid description");
+            throw new IsNull("Error Processing Request - Null/Invalid description");
         }
 
         if(!$unit_cost){
-            throw new Exception\IsNull("Error Processing Request - Null/Invalid unit_cost");
+            throw new IsNull("Error Processing Request - Null/Invalid unit_cost");
         }
 
         //Validate Product Type
         $valid_product_type = ["product", "service"];
 
         if(!$type){
-            throw new Exception\IsNull("Error Processing Request - Null/Invalid type");
+            throw new IsNull("Error Processing Request - Null/Invalid type");
         }elseif (!in_array(strtolower($type), $valid_product_type)) {
-            throw new Exception\IsInvalid("Invalid Type - Available options: 'product' or 'service'");
+            throw new IsInvalid("Invalid Type - Available options: 'product' or 'service'");
         }
 
         $url = "/products";
@@ -509,7 +517,7 @@ class Payant {
     */
     public function getProduct($product_id){
         if(!$product_id){
-            throw new Exception\IsNullOrInvalid("Error Processing Request - Null/Invalid product_id");
+            throw new IsNullOrInvalid("Error Processing Request - Null/Invalid product_id");
         }
 
         $url = "/products/{$product_id}";
@@ -529,7 +537,7 @@ class Payant {
     */
     public function editProduct($product_id, array $product_data){
         if(!$product_id){
-               throw new Exception\IsNullOrInvalid("Error Processing Request - Null/Invalid Product Id");
+               throw new IsNullOrInvalid("Error Processing Request - Null/Invalid Product Id");
         }
 
         //Validate Type
@@ -538,9 +546,9 @@ class Payant {
         $valid_product_type = ["product", "service"];
 
         if(!$product_type){
-            throw new Exception\IsNull("Error Processing Request - Null/Invalid type");
+            throw new IsNull("Error Processing Request - Null/Invalid type");
         }elseif (!in_array($product_type, $valid_product_type)) {
-            throw new Exception\IsInvalid("Invalid Type - Available options: 'product' or 'service'");
+            throw new IsInvalid("Invalid Type - Available options: 'product' or 'service'");
         }
 
        $url = "/products/{$product_id}";
@@ -549,7 +557,7 @@ class Payant {
        $required_values = ['name', 'description', 'unit_cost', 'type'];
 
         if(!array_keys_exist($client_data, $required_values)){
-             throw new Exception\RequiredValuesMissing("Missing required values :(");
+             throw new RequiredValuesMissing("Missing required values :(");
         }
 
         return $this->sendRequest('put', $url, ['form_params' => $post_data]);
@@ -578,7 +586,7 @@ class Payant {
     */
     public function deleteProduct($product_id){
         if(!$product_id){
-            throw new Exception\IsNullOrInvalid("Error Processing Request - Null/Invalid Product Id");
+            throw new IsNullOrInvalid("Error Processing Request - Null/Invalid Product Id");
         }
 
         $url = "/products/{$product_id}";
