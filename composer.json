@@ -1,0 +1,41 @@
+{
+    "name": "olaoluwa-98/laravel-payant",
+    "description": "A laravel package for Payant",
+    "keywords": ["php","github", "laravel","Open Source","payments", "subscription", "payant", "payant.ng","laravel 5"],
+    "type": "package",
+    "license": "MIT",
+    "authors": [
+      {
+        "name": "Emmanuel Awotunde",
+        "email": "awotunde.emmanuel1@gmail.com"
+      }
+   	],
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^5.4.0|^7.0",
+        "illuminate/support": "5.*",
+        "guzzlehttp/guzzle": "~6.0"
+	},
+	"require-dev": {
+	        "phpunit/phpunit" : "4.*",
+	        "scrutinizer/ocular": "~1.1",
+	        "satooshi/php-coveralls": "^0.7.0",
+	        "mockery/mockery": ">=0.7.2"
+	    },
+   "autoload": {
+        "psr-4": {
+          "Olaoluwa98\\Payant\\": "src/"
+        },
+        "files": [
+            "src/Support/helpers.php"
+        ]
+   },
+   "autoload-dev": {
+        "psr-4": {
+            "Olaoluwa98\\Payant\\Test\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    }
+}
