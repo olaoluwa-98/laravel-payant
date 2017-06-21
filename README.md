@@ -87,7 +87,8 @@ Functions are named based on the documentation located [API Documentation](https
 Read the functions in the documentation to know parameters needed for each function
 
 You can use the package in your controller by adding `use Payant;`
-```
+
+```php
 $client_data = ['first_name' => 'Emmanuel',
                 'last_name' => 'Awotunde',
                 'email' => 'awotunde.emmanuel1@gmail.com',
