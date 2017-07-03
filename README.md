@@ -18,7 +18,7 @@ Main functions from Jonathan Itakpe's [payantNG-php](https://github.com/Jonathan
 
 To get the latest version of Laravel Payant, simply add the following line to the require block of your `composer.json` file.
 
-```
+```php
 "olaoluwa-98/laravel-payant": "1.0.*"
 ```
 
