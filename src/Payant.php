@@ -38,7 +38,7 @@ class Payant {
      * @var $base_uri
      *
     */
-    protected $base_uri = 'https://api.payant.ng';
+    protected $base_uri = 'https://api.demo.payant.ng';
     
     
     /**
@@ -63,9 +63,9 @@ class Payant {
     */
     public function setBaseUrl()
     {
-        if(Config::get('payantng.isdemo') == 'TRUE')
+        if(Config::get('payant.mode') == 'LIVE')
         {
-            $this->base_uri = "https://api.demo.payant.ng";
+            $this->base_uri = "https://api.payant.ng";
         }
     }
 
@@ -74,7 +74,7 @@ class Payant {
      */
     public function setKey()
     {
-        $this->private_key = Config::get('payantng.private_key');
+        $this->private_key = Config::get('payant.private_key');
     }
 
 
@@ -91,7 +91,8 @@ class Payant {
             'protocols' => ['https'],
             'headers' => [
                 'Authorization' => $authorization_string,
-                'Content-Type' => 'application/json'
+                'Content-Type'  => 'application/json',
+                'Accept'        => 'application/json'
             ]
         ]);
     }

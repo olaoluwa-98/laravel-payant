@@ -57,18 +57,18 @@ return [
      * Public Key From Payant Dashboard
      *
      */
-    'public_key' => getenv('PAYANT_PUBLIC_KEY'),
+    'public_key' => env('PAYANT_PUBLIC_KEY'),
 
     /**
      * Private Key From Payant Dashboard
      *
      */
-    'private_key' => getenv('PAYANT_PRIVATE_KEY'),
+    'private_key' => env('PAYANT_PRIVATE_KEY'),
 
     /**
-     * Whether Payant API URL Is DEMO Or Not
+     * Payant API MODE
      */
-    'isdemo' => getenv('IS_DEMO'),
+    'mode' => env('PAYANT_MODE'),
 ];
 ```
 
@@ -80,7 +80,7 @@ You can get them from your [Payant Dashboard](https://payant.ng/settings/develop
 ```php
 PAYANT_PUBLIC_KEY=xxxxxxxxxxxxx
 PAYANT_PRIVATE_KEY=xxxxxxxxxxxxx
-IS_DEMO="TRUE" if in demo mode or leave it empty if in live mode
+PAYANT_MODE= DEMO or LIVE
 ```
 
 Functions are named based on the documentation located [API Documentation](https://developers.payant.ng/overview)

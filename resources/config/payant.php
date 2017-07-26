@@ -15,16 +15,16 @@ return [
      * Public Key From Payant Dashboard
      *
      */
-    'public_key' => getenv('PAYANT_PUBLIC_KEY'),
+    'public_key' => env('PAYANT_PUBLIC_KEY'),
 
     /**
      * Private Key From Payant Dashboard
      *
      */
-    'private_key' => getenv('PAYANT_PRIVATE_KEY'),
+    'private_key' => env('PAYANT_PRIVATE_KEY'),
 
     /**
-     * Whether Payant API URL Is DEMO Or Not
+     * Payant API MODE
      */
-    'isdemo' => getenv('IS_DEMO'),
+    'mode' => env('PAYANT_MODE'),
 ];
