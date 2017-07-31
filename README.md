@@ -14,12 +14,12 @@ Main functions from Jonathan Itakpe's [payantNG-php](https://github.com/Jonathan
 
 ## Installation
 
-[PHP](https://php.net) 5.4+ or [HHVM](http://hhvm.com) 3.3+, and [Composer](https://getcomposer.org) are required.
+[PHP](https://php.net) 5.4+, and [Composer](https://getcomposer.org) are required.
 
 To get the latest version of Laravel Payant, simply add the following line to the require block of your `composer.json` file.
 
 ```php
-"olaoluwa-98/laravel-payant": "1.0.*"
+"olaoluwa-98/laravel-payant": "1.1.*"
 ```
 
 You'll then need to run `composer install` or `composer update` to download it and have the autoloader updated.
@@ -93,8 +93,9 @@ $client_data = ['first_name' => 'Emmanuel',
                 'email' => 'awotunde.emmanuel1@gmail.com',
                 'phone' => '+2348090579032'];
 Payant::addClient($client_data);
-
-//the function above would return the following JSON data if request is successful
+```
+the function above would return the following JSON data if request is successful
+```
 {
   "status": "success",
   "message": "Client created successfully.",
