@@ -22,8 +22,7 @@ use Olaoluwa98\Payant\Exceptions\IsNull;
 use Olaoluwa98\Payant\Exceptions\IsNullOrInvalid;
 use Olaoluwa98\Payant\Exceptions\RequiredValueMissing;
 use Olaoluwa98\Payant\Exceptions\RequiredValuesMissing;
-
-use \Exception as phpException;
+use Exception;
 class Payant {
     
 
@@ -317,24 +316,7 @@ class Payant {
             throw new RequiredValueMissing("Error Processing Request - period Missing");
         }
 
-        //Validate Period
-        $valid_period_options = ["today", "week", "month", "30", "90", "year", "custom"];
-
-        if (!in_array($period, $valid_period_options)) {
-            throw new IsInvalid("Invalid Period - Available options: today, week, month, 30, 90, year or custom");
-        }
-
-        $post_data = [
-            'period' => $period
-        ];
-
-        if ($period == 'custom'){
-            if (!$start || !$end){
-                throw new IsNull("Invalid custom Start or End date");
-            }
-            $post_data['start'] = $start;
-            $post_data['end'] = $end;
-        }
+        check($period, $start, $end);        
 
         $url = "/invoices/history";
 
@@ -429,24 +411,8 @@ class Payant {
             throw new RequiredValueMissing("Error Processing Request - period Missing");
         }
 
-        //Validate Period
-        $valid_period_options = ["today", "week", "month", "30", "90", "year", "custom"];
-
-        if (!in_array($period, $valid_period_options)) {
-            throw new IsInvalid("Invalid Period - Available options: today, week, month, 30, 90, year or custom");
-        }
-
-        $post_data = [
-            'period' => $period
-        ];
-
-        if ($period == 'custom'){
-            if (!$start || !$end){
-                throw new IsNull("Invalid custom Start or End date");
-            }
-            $post_data['start'] = $start;
-            $post_data['end'] = $end;
-        }
+        // validate period
+        check($period, $start, $end);
 
         $url = "/transfers/history";
 
@@ -480,11 +446,11 @@ class Payant {
     /**
     * [addPayment]
     * @param string $reference_code [Mandatory - Invoice Reference Code]
-    * @param string $date           [Mandatory - [Format - DD/MM/YYYY]]
+    * @param string $due_date           [Mandatory - [Format - DD/MM/YYYY]]
     * @param string $amount         [Mandatory]
     * @param string $channel        [Mandatory - valid ["Cash", "BankTransfer", "POS", "Cheque"]]
     */
-    public function addPayment(string $reference_code, string $date, string $amount, string $channel){
+    public function addPayment(string $reference_code, string $due_date, string $amount, string $channel){
         if(!$reference_code){
             throw new IsNullOrInvalid("Error Processing Request - Null/Invalid reference_code");
         }
@@ -509,7 +475,7 @@ class Payant {
 
         $post_data = [
             'reference_code' => $reference_code,
-            'date' => $date,
+            'date' => $due_date,
             'amount' => $amount,
             'channel' => $channel
         ];
@@ -551,24 +517,8 @@ class Payant {
             throw new RequiredValueMissing("Error Processing Request - period Missing");
         }
 
-        //Validate Period
-        $valid_period_options = ["today", "week", "month", "30", "90", "year", "custom"];
-
-        if (!in_array(strtolower($period), $valid_period_options)) {
-            throw new IsInvalid("Invalid Period - Available options: today, week, month, 30, 90, year or custom");
-        }
-
-        $post_data = [
-            'period' => $period
-        ];
-
-        if ($period == 'custom'){
-            if (!$start || !$end){
-                throw new IsNull("Invalid custom Start or End date");
-            }
-            $post_data['start'] = $start;
-            $post_data['end'] = $end;
-        }
+        // validate period
+        check($period, $start, $end);
 
         $url = "/payments/history";
 
@@ -670,11 +620,11 @@ class Payant {
        // Mandatory fields
        $required_values = ['name', 'description', 'unit_cost', 'type'];
 
-        if(!array_keys_exist($client_data, $required_values)){
+        if(!array_keys_exist($product_data, $required_values)){
              throw new RequiredValuesMissing("Missing required values :(");
         }
 
-        return $this->sendRequest('put', $url, ['form_params' => $post_data]);
+        return $this->sendRequest('put', $url, ['form_params' => $product_data]);
     }
 
     

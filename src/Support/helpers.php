@@ -66,6 +66,27 @@ if(!function_exists('array_keys_exist')){
     }
 }
 
+function checkHistory($period, $start, $end){
+    //Validate Period
+    $valid_period_options = ["today", "week", "month", "30", "90", "year", "custom"];
+
+    if (!in_array($period, $valid_period_options)) {
+        throw new IsInvalid("Invalid Period - Available options: today, week, month, 30, 90, year or custom");
+    }
+
+    $post_data = [
+        'period' => $period
+    ];
+
+    if ($period == 'custom'){
+        if (!$start || !$end){
+            throw new IsNull("Invalid custom Start or End date");
+        }
+        $post_data['start'] = $start;
+        $post_data['end'] = $end;
+    }
+}
+
 function cleanResponse($response){
   $result = $response->getBody();
   return $result;
