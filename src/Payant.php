@@ -100,7 +100,7 @@ class Payant {
 
     /**
      * [getStates Get States in a country (Nigeria)]
-     * @return [object] [list of banks and their respective bank_ids]
+     * @return object [list of banks and their respective bank_ids]
     */
     public function getBanks(){
         return $this->sendRequest('get', '/banks');
@@ -153,8 +153,8 @@ class Payant {
 
     /**
      * [getClient Get client Details]
-     * @param  [string] $client_id
-     * @return [object]
+     * @param  string $client_id
+     * @return object
     */
     public function getClient($client_id = null){
         if(!$client_id){
@@ -172,8 +172,8 @@ class Payant {
 
     /**
     * [editClient - Edit Existing Client]
-    * @param [string] $client_id
-    * @param [array] $client_data
+    * @param string $client_id
+    * @param array $client_data
     *        Required fields - 'first_name', 'last_name', 'email', 'phone'
     *        Optional - 'address', 'company_name', 'type', 'settlement_bank', 'account_number'
     */
@@ -200,7 +200,7 @@ class Payant {
 
     /**
      * [deleteClient]
-     * @param  [string] $client_id [description]
+     * @param  string $client_id [description]
      */
     public function deleteClient($client_id = null){
         if(!$client_id){
@@ -218,12 +218,12 @@ class Payant {
 
     /**
      * [addInvoice description]
-     * @param [string]      $client_id   [Optional - if client_data is supplied]
+     * @param string      $client_id   [Optional - if client_data is supplied]
      * @param array|null    $client_data [Optional - if client_id is supplied]
      *      Required Keys - 'first_name', 'last_name', 'email', 'phone'
      *      Optional - 'address', 'company_name', 'lga', 'state'                        
-     * @param [string]      $due_date    [Mandatory, Format - DD/MM/YYYY]
-     * @param [string]      $fee_bearer  [Mandatory]
+     * @param string      $due_date    [Mandatory, Format - DD/MM/YYYY]
+     * @param string      $fee_bearer  [Mandatory]
      * @param array         $items       [Mandatory]
      */
     public function addInvoice($client_id, array $client_data, $due_date, $fee_bearer, array $items){
@@ -273,8 +273,8 @@ class Payant {
 
     /**
     * [getInvoice ]
-    * @param  [string] $reference_code [Mandatory - Invoice Reference Code]
-    * @return [object]               
+    * @param  string $reference_code [Mandatory - Invoice Reference Code]
+    * @return object               
     */
     public function getInvoice($reference_code){
         if(!$reference_code){
@@ -288,8 +288,8 @@ class Payant {
 
     /**
     * [sendInvoice]
-    * @param  [type] $reference_code [Mandatory - Invoice Reference Code]
-    * @return [object]               
+    * @param  string $reference_code [Mandatory - Invoice Reference Code]
+    * @return object               
     */
     public function sendInvoice($reference_code = null){
         if(!$reference_code){
@@ -307,10 +307,10 @@ class Payant {
 
     /**
     * [getInvoiceHistory]
-    * @param  [string] $period [Mandatory || Valid Options ["today", "week", "month", "30", "90", "year", "custom"]]
-    * @param  [string] $start  [Format - DD/MM/YYYY]
-    * @param  [string] $end    [Format - DD/MM/YYYY]
-    * @return [object]         
+    * @param  string $period [Mandatory || Valid Options ["today", "week", "month", "30", "90", "year", "custom"]]
+    * @param  string $start  [Format - DD/MM/YYYY]
+    * @param  string $end    [Format - DD/MM/YYYY]
+    * @return object         
     */
     public function getInvoiceHistory($period, $start = null, $end = null){
         if(!$period){
@@ -347,8 +347,8 @@ class Payant {
 
     /**
     * [deleteInvoice]
-    * @param  [string] $reference_code [Mandatory - Invoice Reference Code]
-    * @return [object]                 
+    * @param  string $reference_code [Mandatory - Invoice Reference Code]
+    * @return object                 
     */
     public function deleteInvoice($reference_code){
         if(!$reference_code){
@@ -369,7 +369,7 @@ class Payant {
      * @param array $client_data [description]
      * Required fields - 'first_name', 'last_name', 'email', 'phone', 'settlement_bank', 'account_number',
      * Optional - 'address', 'company_name', 'type',
-     * @param [string]      $amount    [Mandatory]
+     * @param string      $amount    [Mandatory]
      */
     public function addTransfer(array $client_data, string $amount){
         // Mandatory Client fields
@@ -399,8 +399,8 @@ class Payant {
 
     /**
     * [getTransfer ]
-    * @param  [string] $reference_code [Mandatory - Transfer Reference Code]
-    * @return [object]               
+    * @param  string $reference_code [Mandatory - Transfer Reference Code]
+    * @return object               
     */
     public function getTransfer($reference_code){
         if(!$reference_code){
@@ -419,10 +419,10 @@ class Payant {
 
     /**
     * [getTransferHistory]
-    * @param  [string] $period [Mandatory || Valid Options ["today", "week", "month", "30", "90", "year", "custom"]]
-    * @param  [string] $start  [Format - DD/MM/YYYY]
-    * @param  [string] $end    [Format - DD/MM/YYYY]
-    * @return [object]         
+    * @param  string $period [Mandatory || Valid Options ["today", "week", "month", "30", "90", "year", "custom"]]
+    * @param  string $start  [Format - DD/MM/YYYY]
+    * @param  string $end    [Format - DD/MM/YYYY]
+    * @return object         
     */
     public function getTransferHistory($period, $start = null, $end = null){
         if(!$period){
@@ -459,8 +459,8 @@ class Payant {
 
     /**
     * [deleteTransfer]
-    * @param  [string] $reference_code [Mandatory - Invoice Reference Code]
-    * @return [object]                 
+    * @param  string $reference_code [Mandatory - Invoice Reference Code]
+    * @return object                 
     */
     public function deleteTransfer($reference_code){
         if(!$reference_code){
@@ -479,10 +479,10 @@ class Payant {
 
     /**
     * [addPayment]
-    * @param [string] $reference_code [Mandatory - Invoice Reference Code]
-    * @param [string] $date           [Mandatory - [Format - DD/MM/YYYY]]
-    * @param [string] $amount         [Mandatory]
-    * @param [string] $channel        [Mandatory - valid ["Cash", "BankTransfer", "POS", "Cheque"]]
+    * @param string $reference_code [Mandatory - Invoice Reference Code]
+    * @param string $date           [Mandatory - [Format - DD/MM/YYYY]]
+    * @param string $amount         [Mandatory]
+    * @param string $channel        [Mandatory - valid ["Cash", "BankTransfer", "POS", "Cheque"]]
     */
     public function addPayment(string $reference_code, string $date, string $amount, string $channel){
         if(!$reference_code){
@@ -523,7 +523,7 @@ class Payant {
 
     /**
     * [getPayment]
-    * @param [string] $reference_code [Mandatory - Invoice Reference Code]
+    * @param string $reference_code [Mandatory - Invoice Reference Code]
     */
     public function getPayment($reference_code){
         if(!$reference_code){
@@ -541,10 +541,10 @@ class Payant {
 
     /**
     * [getPaymentHistory]
-    * @param  [string] $period [Mandatory || Valid Options ["today", "week", "month", "30", "90", "year", "custom"]]
-    * @param  [string] $start  [Format - DD/MM/YYYY || Optional if $period !== 'custom']
-    * @param  [string] $end    [Format - DD/MM/YYYY || Optional if $period !== 'custom']
-    * @return [object]         
+    * @param  string $period [Mandatory || Valid Options ["today", "week", "month", "30", "90", "year", "custom"]]
+    * @param  string $start  [Format - DD/MM/YYYY || Optional if $period !== 'custom']
+    * @param  string $end    [Format - DD/MM/YYYY || Optional if $period !== 'custom']
+    * @return object         
     */
     public function getPaymentHistory(string $period, string $start, string $end){
         if(!$period){
@@ -626,8 +626,8 @@ class Payant {
 
     /**
     * [getProduct]
-    * @param  [int] $product_id [Mandatory - Product ID]
-    * @return [object] 
+    * @param  int $product_id [Mandatory - Product ID]
+    * @return object 
     */
     public function getProduct($product_id){
         if(!$product_id){
@@ -712,9 +712,9 @@ class Payant {
 
     /**
     * [addPayment]
-    * @param [string] $method       [Mandatory - request method <get | post | put | delete> ]
-    * @param [string] $url           [Mandatory - url to send request to]
-    * @param [array] $params         [data to post to request url]
+    * @param string $method       [Mandatory - request method <get | post | put | delete> ]
+    * @param string $url           [Mandatory - url to send request to]
+    * @param array $params         [data to post to request url]
     */
     public function sendRequest($method, $url, $params=[])
     {
