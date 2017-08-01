@@ -113,7 +113,7 @@ class Payant {
      * @param array $client_data [description]
      * Required fields - 'settlement_bank', 'account_number'
     */
-    public function resolveAccount( array $client_data){
+    public function resolveAccount(array $client_data){
         // Mandatory fields
         $required_values = ['settlement_bank', 'account_number'];
 
@@ -135,7 +135,7 @@ class Payant {
      * Required fields - 'first_name', 'last_name', 'email', 'phone'
      * Optional - 'address', 'company_name', 'type', 'settlement_bank', 'account_number'
     */
-    public function addClient( array $client_data){
+    public function addClient(array $client_data){
         // Mandatory fields
         $required_values = ['first_name', 'last_name', 'email', 'phone'];
 
@@ -157,7 +157,7 @@ class Payant {
      * @return object
     */
     public function getClient($client_id = null){
-        if(!$client_id){
+        if(!$client_id || $client_id === null){
             throw new IsNullOrInvalid("Error Processing Request - Null/Invalid Client Id");
         }
 
@@ -177,8 +177,8 @@ class Payant {
     *        Required fields - 'first_name', 'last_name', 'email', 'phone'
     *        Optional - 'address', 'company_name', 'type', 'settlement_bank', 'account_number'
     */
-    public function editClient( $client_id, array $client_data){
-        if(!$client_id){
+    public function editClient($client_id = null, array $client_data){
+        if(!$client_id || $client_id === null){
            throw new IsNullOrInvalid("Error Processing Request - Null/Invalid Client Id");
         }
 
@@ -203,7 +203,7 @@ class Payant {
      * @param  string $client_id [description]
      */
     public function deleteClient($client_id = null){
-        if(!$client_id){
+        if(!$client_id || $client_id === null){
             throw new IsNullOrInvalid("Error Processing Request - Null/Invalid Client Id");
         }
 
@@ -226,7 +226,7 @@ class Payant {
      * @param string      $fee_bearer  [Mandatory]
      * @param array         $items       [Mandatory]
      */
-    public function addInvoice($client_id, array $client_data, $due_date, $fee_bearer, array $items){
+    public function addInvoice($client_id = null, array $client_data, $due_date = null, $fee_bearer = null, array $items){
         // Mandatory Client fields
         $required_client_values = ['first_name', 'last_name', 'email', 'phone'];
         
@@ -236,15 +236,15 @@ class Payant {
 
         
         // Either the client Id is supplied or a new client data is provided
-        if(!$client_id && !array_keys_exist($client_data, $required_client_values)){
+        if(!$client_id || $client_id === null && !array_keys_exist($client_data, $required_client_values)){
             throw new RequiredValuesMissing("Missing required values :( - Provide client_id or client_data");
         }
 
-        if(!$due_date){
+        if(!$due_date || $due_date === null){
             throw new IsNullOrInvalid("Error Processing Request - Null/Invalid Due Date");
         }
 
-        if(!$fee_bearer){
+        if(!$fee_bearer || $fee_bearer === null){
             throw new IsNull("Error Processing Request - Null Fee Bearer");
         }elseif (!in_array($fee_bearer, $valid_fee_bearers)) {
             throw new InvalidFeeBearer("Invalid Fee Bearer - Use either 'account' or 'client'");
@@ -276,8 +276,8 @@ class Payant {
     * @param  string $reference_code [Mandatory - Invoice Reference Code]
     * @return object               
     */
-    public function getInvoice($reference_code){
-        if(!$reference_code){
+    public function getInvoice($reference_code = null){
+        if(!$reference_code || $reference_code === null){
             throw new IsNullOrInvalid("Error Processing Request - Null/Invalid reference_code");
         }
 
@@ -292,7 +292,7 @@ class Payant {
     * @return object               
     */
     public function sendInvoice($reference_code = null){
-        if(!$reference_code){
+        if(!$reference_code || $reference_code === null){
             throw new IsNullOrInvalid("Error Processing Request - Null/Invalid reference_code");
         }
 
@@ -312,8 +312,8 @@ class Payant {
     * @param  string $end    [Format - DD/MM/YYYY]
     * @return object         
     */
-    public function getInvoiceHistory($period, $start = null, $end = null){
-        if(!$period){
+    public function getInvoiceHistory($period = null, $start = null, $end = null){
+        if(!$period || $period === null){
             throw new RequiredValueMissing("Error Processing Request - period Missing");
         }
 
@@ -329,7 +329,7 @@ class Payant {
         ];
 
         if ($period == 'custom'){
-            if (!$start || !$end){
+            if (!$start || !$end || $start === null || $end === null){
                 throw new IsNull("Invalid custom Start or End date");
             }
             $post_data['start'] = $start;
@@ -350,8 +350,8 @@ class Payant {
     * @param  string $reference_code [Mandatory - Invoice Reference Code]
     * @return object                 
     */
-    public function deleteInvoice($reference_code){
-        if(!$reference_code){
+    public function deleteInvoice($reference_code = null){
+        if(!$reference_code || $reference_code === null){
             throw new IsNullOrInvalid("Error Processing Request - Null/Invalid reference_code");
         }
 
@@ -371,7 +371,7 @@ class Payant {
      * Optional - 'address', 'company_name', 'type',
      * @param string      $amount    [Mandatory]
      */
-    public function addTransfer(array $client_data, string $amount){
+    public function addTransfer(array $client_data, string $amount = null){
         // Mandatory Client fields
         $required_client_values = ['first_name', 'last_name', 'email', 'phone', 'settlement_bank', 'account_number'];        
         
@@ -379,7 +379,7 @@ class Payant {
             throw new RequiredValuesMissing("Missing required values :( - Provide client_data");
         }
 
-        if(!$amount){
+        if(!$amount || $amount === null){
             throw new IsNullOrInvalid("Error Processing Request - Null/Invalid amount");
         }
 
@@ -402,8 +402,8 @@ class Payant {
     * @param  string $reference_code [Mandatory - Transfer Reference Code]
     * @return object               
     */
-    public function getTransfer($reference_code){
-        if(!$reference_code){
+    public function getTransfer($reference_code = null){
+        if(!$reference_code || $reference_code === null){
             throw new IsNullOrInvalid("Error Processing Request - Null/Invalid reference_code");
         }
 
@@ -424,8 +424,8 @@ class Payant {
     * @param  string $end    [Format - DD/MM/YYYY]
     * @return object         
     */
-    public function getTransferHistory($period, $start = null, $end = null){
-        if(!$period){
+    public function getTransferHistory($period = null, $start = null, $end = null){
+        if(!$period || $period === null){
             throw new RequiredValueMissing("Error Processing Request - period Missing");
         }
 
@@ -441,7 +441,7 @@ class Payant {
         ];
 
         if ($period == 'custom'){
-            if (!$start || !$end){
+            if (!$start || !$end || $start === null || $end === null){
                 throw new IsNull("Invalid custom Start or End date");
             }
             $post_data['start'] = $start;
@@ -462,8 +462,8 @@ class Payant {
     * @param  string $reference_code [Mandatory - Invoice Reference Code]
     * @return object                 
     */
-    public function deleteTransfer($reference_code){
-        if(!$reference_code){
+    public function deleteTransfer($reference_code = null){
+        if(!$reference_code || $reference_code === null){
             throw new IsNullOrInvalid("Error Processing Request - Null/Invalid reference_code");
         }
 
@@ -484,22 +484,22 @@ class Payant {
     * @param string $amount         [Mandatory]
     * @param string $channel        [Mandatory - valid ["Cash", "BankTransfer", "POS", "Cheque"]]
     */
-    public function addPayment(string $reference_code, string $date, string $amount, string $channel){
-        if(!$reference_code){
+    public function addPayment(string $reference_code = null, string $date = null, string $amount = null, string $channel = null){
+        if(!$reference_code || $reference_code === null){
             throw new IsNullOrInvalid("Error Processing Request - Null/Invalid reference_code");
         }
 
-        if(!$due_date){
+        if(!$due_date || $due_date === null){
             throw new IsNullOrInvalid("Error Processing Request - Null/Invalid date");
         }
 
-        if(!$amount){
+        if(!$amount || $amount === null){
             throw new IsNullOrInvalid("Error Processing Request - Null/Invalid amount");
         }
 
         $valid_channels = ["Cash", "BankTransfer", "POS", "Cheque"];
 
-        if(!$channel){
+        if(!$channel || $channel === null){
             throw new IsNull("Error Processing Request - Null/Invalid amount");
         }elseif (!in_array(ucfirst($channel), $valid_channels)) {
             throw new IsInvalid("Invalid Channel - Cash, BankTransfer, POS or Cheque");
@@ -525,8 +525,8 @@ class Payant {
     * [getPayment]
     * @param string $reference_code [Mandatory - Invoice Reference Code]
     */
-    public function getPayment($reference_code){
-        if(!$reference_code){
+    public function getPayment($reference_code = null){
+        if(!$reference_code || $reference_code === null){
             throw new IsNullOrInvalid("Error Processing Request - Null/Invalid reference_code");
         }
 
@@ -546,8 +546,8 @@ class Payant {
     * @param  string $end    [Format - DD/MM/YYYY || Optional if $period !== 'custom']
     * @return object         
     */
-    public function getPaymentHistory(string $period, string $start, string $end){
-        if(!$period){
+    public function getPaymentHistory(string $period = null, string $start = null, string $end = null){
+        if(!$period || $period === null){
             throw new RequiredValueMissing("Error Processing Request - period Missing");
         }
 
@@ -563,7 +563,7 @@ class Payant {
         ];
 
         if ($period == 'custom'){
-            if (!$start || !$end){
+            if (!$start || !$end || $start === null || $end === null){
                 throw new IsNull("Invalid custom Start or End date");
             }
             $post_data['start'] = $start;
@@ -586,23 +586,23 @@ class Payant {
     * @param string $unit_cost   [Mandatory - Product's unit cost]
     * @param string $type        [Mandatory - Product type 'product' or 'service']
     */
-    public function addProduct(string $name, string $description, string $unit_cost, string $type){
-        if(!$name){
+    public function addProduct(string $name = null, string $description = null, string $unit_cost = null, string $type = null){
+        if(!$name || $name === null){
             throw new IsNull("Error Processing Request - Null/Invalid name");
         }
 
-        if(!$description){
+        if(!$description || $description === null){
             throw new IsNull("Error Processing Request - Null/Invalid description");
         }
 
-        if(!$unit_cost){
+        if(!$unit_cost || $unit_cost === null){
             throw new IsNull("Error Processing Request - Null/Invalid unit_cost");
         }
 
         //Validate Product Type
         $valid_product_type = ["product", "service"];
 
-        if(!$type){
+        if(!$type || $type === null){
             throw new IsNull("Error Processing Request - Null/Invalid type");
         }elseif (!in_array(strtolower($type), $valid_product_type)) {
             throw new IsInvalid("Invalid Type - Available options: 'product' or 'service'");
@@ -629,8 +629,8 @@ class Payant {
     * @param  int $product_id [Mandatory - Product ID]
     * @return object 
     */
-    public function getProduct($product_id){
-        if(!$product_id){
+    public function getProduct($product_id = null){
+        if(!$product_id || $product_id === null){
             throw new IsNullOrInvalid("Error Processing Request - Null/Invalid product_id");
         }
 
@@ -649,8 +649,8 @@ class Payant {
     * @param  array  $product_data [description]
     * @return object               
     */
-    public function editProduct($product_id, array $product_data){
-        if(!$product_id){
+    public function editProduct($product_id = null, array $product_data){
+        if(!$product_id || $product_id === null){
                throw new IsNullOrInvalid("Error Processing Request - Null/Invalid Product Id");
         }
 
@@ -698,8 +698,8 @@ class Payant {
     * @param $product_id [Mandatory - Product ID]
     * @return object           
     */
-    public function deleteProduct($product_id){
-        if(!$product_id){
+    public function deleteProduct($product_id = null){
+        if(!$product_id || $product_id === null){
             throw new IsNullOrInvalid("Error Processing Request - Null/Invalid Product Id");
         }
 
