@@ -85,6 +85,7 @@ function checkHistory($period, $start, $end){
         $post_data['start'] = $start;
         $post_data['end'] = $end;
     }
+    return $post_data;
 }
 
 function cleanResponse($response){

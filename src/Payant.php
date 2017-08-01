@@ -316,7 +316,7 @@ class Payant {
             throw new RequiredValueMissing("Error Processing Request - period Missing");
         }
 
-        check($period, $start, $end);        
+        $post_data = checkHistory($period, $start, $end);        
 
         $url = "/invoices/history";
 
@@ -412,7 +412,7 @@ class Payant {
         }
 
         // validate period
-        check($period, $start, $end);
+        $post_data = checkHistory($period, $start, $end);
 
         $url = "/transfers/history";
 
@@ -518,7 +518,7 @@ class Payant {
         }
 
         // validate period
-        check($period, $start, $end);
+        $post_data = checkHistory($period, $start, $end);
 
         $url = "/payments/history";
 
