@@ -120,6 +120,46 @@ the function above would return the following JSON data if request is successful
 }
 ```
 
+## Functions in this package
+* Miscellaneous
+  1. `getBanks()` [GET]
+  2. `resolveAccount( array $client_data )` [POST]
+* Client
+  1. `addClient( array $client_data )` [POST]
+  2. `getClient( $client_id )` [GET]
+  3. `editClient( $client_id, array $client_data )` [PUT]
+  4. `deleteClient( $client_id )` [DELETE]
+* Invoices
+  1. `addInvoice( $client_id, array $client_data, $due_date, $fee_bearer, array $items )` [POST]
+  2. `getInvoice( string $reference_code )` [GET]
+  3. `sendInvoice( string $reference_code )` [GET]
+  4. `getInvoiceHistory( $period, $start = null, $end = null )` [POST]
+  5. `deleteInvoice( string $reference_code )` [DELETE]
+* Transfer
+  1. `addTransfer( array $client_data, string $amount )` [POST]
+  2. `getTransfer( string $reference_code )` [GET]
+  3. `getTransferHistory( $period, $start = null, $end = null )` [POST]
+  4. `deleteTransfer( string $reference_code )` [DELETE]
+* Payments
+  1. `addPayment( string $reference_code, string $due_date, string $amount, string $channel )` [POST]
+  2. `getPayment( string $reference_code )` [GET] 
+  3. `getPaymentHistory( string $period, string $start, string $end )` [POST]
+  4. `deleteTransfer( string $reference_code )` [DELETE]
+* Wallets
+  1. `addWallet( string $name, string $passcode )` [POST]
+  2. `getWallet( string $reference_code )` [GET] 
+  3. `changeWalletPasscode( string $reference_code, string $old_passcode, string $passcode )` [PUT]
+  4. `getWallets()` [GET]
+  5. `withdrawFromWallet( string $reference_code, array $client_data, string $amount, string $passcode )` [POST]
+  6. `getWalletTransactions( string $reference_code, $period, $start = null, $end = null )` [POST]
+* Products
+  1. `addProduct( string $name, string $description, string $unit_cost, string $type )` [POST]
+  2. `getProduct( $product_id )` [GET] 
+  3. `editProduct( $product_id, array $product_data )` [PUT]
+  4. `getProducts()` [GET]
+  5. `deleteProduct( $product_id )` [DELETE]
+
+
 ## Todo
 
 * Add Comprehensive Tests
