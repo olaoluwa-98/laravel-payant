@@ -636,6 +636,25 @@ class Payant {
 
 
     /**
+    * [setWalletStatus]
+    * @param  string $reference_code [Mandatory - Wallet's Reference Code]
+    * @return object 
+    */
+    public function setWalletStatus(string $reference_code){
+        if(!$reference_code){
+            throw new IsNullOrInvalid("Error Processing Request - Null/Invalid reference_code");
+        }
+
+        $url = "/wallets/status/{$reference_code}";
+
+        return $this->sendRequest('get', $url);
+    }
+
+
+
+
+
+    /**
     * [withdrawFromWallet]
     * @param  string $reference_code [Mandatory - Wallet's Reference Code]
     * @param  array $client_data [Mandatory - Client Data]

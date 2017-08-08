@@ -150,8 +150,9 @@ the function above would return the following JSON data if request is successful
   2. `getWallet( string $reference_code )` [GET] 
   3. `changeWalletPasscode( string $reference_code, string $old_passcode, string $passcode )` [PUT]
   4. `getWallets()` [GET]
-  5. `withdrawFromWallet( string $reference_code, array $client_data, string $amount, string $passcode )` [POST]
-  6. `getWalletTransactions( string $reference_code, $period, $start = null, $end = null )` [POST]
+  5. `setWalletStatus( string $reference_code )` [GET]
+  6. `withdrawFromWallet( string $reference_code, array $client_data, string $amount, string $passcode )` [POST]
+  7. `getWalletTransactions( string $reference_code, $period, $start = null, $end = null )` [POST]
 * Products
   1. `addProduct( string $name, string $description, string $unit_cost, string $type )` [POST]
   2. `getProduct( $product_id )` [GET] 

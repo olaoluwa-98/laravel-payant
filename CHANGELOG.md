@@ -13,6 +13,6 @@ All Notable changes to `laravel-payant` will be documented in this file
 - Version 1.1.1
 # add transfer functions
 
-## 2017-08-06
+## 2017-08-08
 - Version 1.1.2
 # add wallet functions
